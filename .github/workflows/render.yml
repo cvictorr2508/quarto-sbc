@@ -1,0 +1,31 @@
+name: Render extension example
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto and TinyTeX
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true
+
+      - name: Check Quarto installation
+        run: quarto check
+
+      - name: Render HTML example
+        run: quarto render template.qmd --to sbc-html
+
+      - name: Render PDF example
+        run: quarto render template.qmd --to sbc-pdf

@@ -1,0 +1,33 @@
+---
+title: "A Reproducible Scientific Article with Quarto and the SBC Style"
+author:
+  - name: First Author
+  - name: Second Author
+abstract: |
+  This document is a minimal reproducible example for the `quarto-sbc` extension. Replace this text with a concise statement of context, objective, method, results, and conclusions.
+resumo: |
+  Este documento é um exemplo mínimo reprodutível para a extensão `quarto-sbc`. Substitua este texto por uma síntese do contexto, objetivo, método, resultados e conclusões.
+format:
+  sbc-html: default
+  sbc-pdf: default
+---
+
+# Introduction
+
+This starter document verifies the installation and rendering path of the extension. It is intentionally generic and contains no fabricated scientific claims.
+
+# Method
+
+Describe the problem formulation, data, algorithms, baselines, experimental design, metrics, and computational environment with explicit provenance.
+
+# Results
+
+Tables and figures should preferably be generated from machine-readable experimental outputs.
+
+# Discussion
+
+Separate empirical observations from interpretation and avoid claims that exceed the evidence.
+
+# Conclusion
+
+Summarize only conclusions that are supported by the reported results.
