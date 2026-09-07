@@ -60,8 +60,9 @@ jobs:
 
       - name: Validate extension installation downstream
         run: |
+          rm -rf /tmp/quarto-sbc-downstream
           mkdir -p /tmp/quarto-sbc-downstream
           cd /tmp/quarto-sbc-downstream
           quarto create project manuscript . --no-prompt
-          quarto add cvictorr2508/quarto-sbc --no-prompt
+          quarto add cvictorr2508/quarto-sbc/sbc --no-prompt
           test -f _extensions/sbc/_extension.yml
