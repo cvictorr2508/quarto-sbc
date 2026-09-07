@@ -67,7 +67,7 @@ jobs:
           quarto create project manuscript . --no-prompt
           quarto add cvictorr2508/quarto-sbc --no-prompt
 
-          cat > smoke.qmd <<'EOF'
+          cat > index.qmd <<'EOF'
           ---
           title: "SBC downstream smoke test"
           author:
@@ -85,12 +85,12 @@ jobs:
           SBC extension portability smoke test.
           EOF
 
-          quarto render smoke.qmd --to sbc-pdf
+          quarto render index.qmd --to sbc-pdf
 
           pdf_path="$(
             find /tmp/quarto-sbc-downstream \
               -type f \
-              -name 'smoke.pdf' \
+              -name 'index.pdf' \
               -size +0c \
               -print -quit
           )"
