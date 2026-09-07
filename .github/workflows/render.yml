@@ -86,4 +86,14 @@ jobs:
           EOF
 
           quarto render smoke.qmd --to sbc-pdf
-          test -s _manuscript/smoke.pdf
+
+          pdf_path="$(
+            find /tmp/quarto-sbc-downstream \
+              -type f \
+              -name 'smoke.pdf' \
+              -size +0c \
+              -print -quit
+          )"
+
+          test -n "$pdf_path"
+          echo "Downstream SBC PDF: $pdf_path"
