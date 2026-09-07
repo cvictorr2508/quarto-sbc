@@ -14,7 +14,9 @@ PAGE_TOLERANCE_PT = 1.0
 EXPECTED_TEX_SEQUENCE = [
     r"\title{A Reproducible Scientific Article with Quarto and the SBC Style}",
     "First Author",
+    r"\inst{1}",
     "Second Author",
+    r"\inst{2}",
     r"\begin{document}",
     r"\maketitle",
     r"\begin{abstract}",
@@ -87,7 +89,7 @@ def find_token_sequence(tokens: list[str], marker_tokens: list[str], start: int)
         return start
 
     limit = len(tokens) - len(marker_tokens) + 1
-    for index in range(start, max(start, limit)):
+    for index in range(start, limit):
         if tokens[index : index + len(marker_tokens)] == marker_tokens:
             return index
     return -1
