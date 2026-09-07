@@ -74,6 +74,18 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+      - name: Upload SBC regression diagnostics
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: sbc-regression-diagnostics
+          path: |
+            artifacts/index.tex
+            artifacts/index.txt
+            artifacts/index-pdfinfo.txt
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Validate extension installation downstream
         run: |
           rm -rf /tmp/quarto-sbc-downstream
