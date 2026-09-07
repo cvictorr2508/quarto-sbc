@@ -36,6 +36,18 @@ jobs:
         run: |
           test -s _manuscript/index.pdf
           mkdir -p artifacts
+
+          tex_path="$(
+            find . \
+              -type f \
+              -name 'index.tex' \
+              -not -path './.git/*' \
+              -print -quit
+          )"
+          test -n "$tex_path"
+          echo "Generated TeX: $tex_path"
+          cp "$tex_path" artifacts/index.tex
+
           pdfinfo _manuscript/index.pdf > artifacts/index-pdfinfo.txt
           pdftotext -layout _manuscript/index.pdf artifacts/index.txt
           pdftoppm \
@@ -50,7 +62,8 @@ jobs:
         run: |
           python3 scripts/check_sbc_pdf.py \
             --pdfinfo artifacts/index-pdfinfo.txt \
-            --text artifacts/index.txt
+            --text artifacts/index.txt \
+            --tex artifacts/index.tex
 
       - name: Upload SBC first-page preview
         if: always()
