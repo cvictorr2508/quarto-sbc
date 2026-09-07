@@ -14,6 +14,12 @@
 \usepackage{hyperref}
 $if(natbib)$
 \usepackage{natbib}
+% The supplied sbc.bst is a copy of apalike whose documented SBC-specific
+% difference is the removal of the comma before the year in citation labels.
+% Keep apalike as the executable bibliography formatter and reproduce that
+% punctuation explicitly in natbib while the original sbc.bst remains tracked
+% by provenance hash.
+\setcitestyle{authoryear,round,aysep={}}
 $endif$
 
 \sloppy
