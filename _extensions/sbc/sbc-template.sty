@@ -1,19 +1,20 @@
 % LaTeX definitions for SBC 2001 style
 %
-% Created by Jomi Hubner & Rafael Bordini, june 2001
-% updated march 2005
-% updated december 2017
+% Created by Jomi Hubner & Rafael Bordini, June 2001
+% updated March 2005
+% updated December 2017
 %
 % quarto-sbc note: imported from the SBC template supplied by the project
-% owner. Only malformed characters in comments were normalized to UTF-8;
+% owner. Malformed characters occurring only in comments were normalized to
+% UTF-8, and repository-facing comments were translated to English. Active
 % LaTeX behavior is otherwise preserved.
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{sbc-template}[2001/06/09]
 
-% margem sup 3.5 cm: ha 1,5 cm para header, + 2 cm para top
-% margem inf 2.5 cm: ha 1,5 cm para foot, + 1 cm para bottom
-% margem esq/dir 3 cm
+% Top margin 3.5 cm: 1.5 cm for header + 2 cm for top spacing
+% Bottom margin 2.5 cm: 1.5 cm for footer + 1 cm for bottom spacing
+% Left/right margins 3 cm
 \RequirePackage[a4paper,top=3.5cm,left=3cm,right=3cm,bottom=2.5cm]{geometry}
 
 \parindent 1.27cm
@@ -21,21 +22,21 @@
 
 \flushbottom
 
-% captions
-% updated 2017. Change deprecated caption2 to caption package
+% Captions
+% Updated 2017: replace the deprecated caption2 package with caption
 \RequirePackage[bf,sf,footnotesize,indent]{caption}
 \setlength{\captionmargin}{0.8cm}
 \renewcommand{\captionfont}{\sffamily\footnotesize\bfseries}
 \captionsetup{labelsep=period}
 
-% font
+% Font
 \RequirePackage{times}
 
 \renewcommand{\normalsize}{\@setfontsize\normalsize\@xiipt\@xivpt}
 \newcommand{\XIIIPT}{\@setfontsize\xiiipt{13}{17}}
 \newcommand{\XVIPT}{\@setfontsize\xvipt{16}{20}}
 
-% new commands
+% Custom commands
 \newcounter{instn}
 \setcounter{instn}{1}
 \newcommand{\instnum}{\arabic{instn}}
@@ -44,7 +45,7 @@
 \newcommand{\email}[1]{\\\mbox{}\\[-6pt]\footnotesize\texttt{#1}}
 \renewcommand{\and}{, }
 
-% to avoid [...] in the bibliography
+% Avoid bracketed labels in the bibliography
 \def\@lbibitem[#1]#2{\item[]\if@filesw
       {\let\protect\noexpand
        \immediate
@@ -71,7 +72,7 @@
        {\@latex@warning{Empty `thebibliography' environment}}%
       \endlist}
 
-% itens
+% List layout
 \setlength\leftmargini   {1.27cm}
 \setlength\leftmargin    {\leftmargini}
 \setlength\leftmarginii  {\leftmargini}
@@ -97,7 +98,7 @@
               \parsep    \z@
               \partopsep \p@ \@plus\z@ \@minus\p@}
 
-% sections
+% Sections
 \renewcommand\section{\@startsection{section}{1}{\z@}%
                        {-6\p@ \@plus -4\p@ \@minus -4\p@}%
                        {0\p@ \@plus 4\p@ \@minus 4\p@}%
@@ -113,7 +114,7 @@
 \RequirePackage{titlesec}
 \titlelabel{\thetitle.\hspace{1ex}}
 
-% first page
+% First page
 \pagestyle{empty}
 
 \newcommand{\authortag}[1]{$^{#1}$}
@@ -156,7 +157,7 @@
                                     \bfseries\itshape Resumo.]\itshape}%
       {\endlist}
 
-% Updated 2017. If hyperref is used, do not change references styles
+% Updated 2017: if hyperref is used, do not change reference styles
 \RequirePackage{etoolbox}%
 \AtEndPreamble{\@ifpackageloaded{hyperref}
     {%
