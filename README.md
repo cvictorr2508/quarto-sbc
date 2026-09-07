@@ -51,13 +51,9 @@ Install only the SBC format extension:
 quarto add cvictorr2508/quarto-sbc
 ```
 
-The repository root is also structured as a reusable Quarto Manuscript starter. The intended project-bootstrap command is:
+The repository root is also maintained as an executable Quarto Manuscript starter. For a new research repository, use this repository as the starter source (clone/copy the scaffold or GitHub's template-repository mechanism once enabled), then adapt `_quarto.yml`, `index.qmd`, `references.bib`, and the publication workflows.
 
-```bash
-quarto use template cvictorr2508/quarto-sbc
-```
-
-The starter provides `_quarto.yml`, `index.qmd`, bibliography scaffolding, the SBC extension, and publication workflows. Adapt the scientific content to the target repository while keeping numerical claims traceable to research artifacts.
+A direct `quarto use template cvictorr2508/quarto-sbc` bootstrap is intentionally **not yet advertised as stable**. Quarto format templates conventionally require a root `template.qmd`, whereas a Manuscript project conventionally uses `index.qmd`; this interaction is being validated before the first stable release.
 
 ## GitHub Pages
 
@@ -92,8 +88,8 @@ The HTML representation is a scholarly companion and is not intended to reproduc
 3. ✅ Add SBC-specific front matter and bibliography compatibility.
 4. ✅ Add a Quarto Manuscript starter suitable for research repositories.
 5. ✅ Add a reusable GitHub Pages artifact-deployment workflow based on frozen computational outputs.
-6. Add visual/regression checks against the supplied SBC reference PDF.
-7. Validate installation/bootstrap behavior from a clean downstream repository.
+6. 🔄 Add structural/visual regression checks against the SBC reference output.
+7. 🔄 Validate downstream extension installation and project-bootstrap behavior from a clean repository.
 8. Tag the first stable release.
 
 ## Provenance
