@@ -1,0 +1,51 @@
+\documentclass[12pt]{article}
+
+% Initial SBC-compatible scaffold.
+% The authoritative SBC .sty/.bst resources supplied with the official template
+% will be integrated separately after provenance/licensing verification.
+\usepackage[a4paper,top=3.5cm,left=3cm,right=3cm,bottom=2.5cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage[bf,sf,footnotesize]{caption}
+
+\setlength{\parindent}{1.27cm}
+\setlength{\parskip}{6pt}
+\pagestyle{empty}
+\sloppy
+
+\begin{document}
+
+$if(title)$
+\title{$title$}
+$endif$
+
+$if(author)$
+\author{$for(author)$$author.name$$sep$ \and $endfor$}
+$endif$
+
+\date{}
+\maketitle
+
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+
+$if(resumo)$
+\renewcommand{\abstractname}{Resumo}
+\begin{abstract}
+$resumo$
+\end{abstract}
+$endif$
+
+$body$
+
+\end{document}
