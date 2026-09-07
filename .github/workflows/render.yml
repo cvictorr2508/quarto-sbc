@@ -63,6 +63,27 @@ jobs:
           rm -rf /tmp/quarto-sbc-downstream
           mkdir -p /tmp/quarto-sbc-downstream
           cd /tmp/quarto-sbc-downstream
+
           quarto create project manuscript . --no-prompt
-          quarto add cvictorr2508/quarto-sbc/sbc --no-prompt
-          test -f _extensions/sbc/_extension.yml
+          quarto add cvictorr2508/quarto-sbc --no-prompt
+
+          cat > smoke.qmd <<'EOF'
+          ---
+          title: "SBC downstream smoke test"
+          author:
+            - name: Test Author
+          abstract: |
+            Downstream extension installation smoke test.
+          resumo: |
+            Teste de instalação downstream da extensão.
+          format:
+            sbc-pdf: default
+          ---
+
+          # Introduction
+
+          SBC extension portability smoke test.
+          EOF
+
+          quarto render smoke.qmd --to sbc-pdf
+          test -s smoke.pdf
