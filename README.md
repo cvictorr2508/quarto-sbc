@@ -45,19 +45,25 @@ A full `quarto render` should be run locally before publishing. When executable 
 
 ## Reuse in another research repository
 
-Install only the SBC format extension:
+There are two supported downstream paths, depending on whether a research repository already exists.
+
+### Existing repository: install only the SBC format
+
+From the target Quarto project, install the extension from the repository's public distribution entry point:
 
 ```bash
 quarto add cvictorr2508/quarto-sbc
 ```
 
-The repository root is also structured as a reusable Quarto Manuscript starter. The intended project-bootstrap command is:
+The repository keeps the extension implementation under `_extensions/sbc/`, but that internal path is not part of the downstream installation contract. CI validates portability behaviorally by installing from a clean Quarto Manuscript project and rendering a document with `sbc-pdf`.
 
-```bash
-quarto use template cvictorr2508/quarto-sbc
-```
+### New scientific repository: use this GitHub template
 
-The starter provides `_quarto.yml`, `index.qmd`, bibliography scaffolding, the SBC extension, and publication workflows. Adapt the scientific content to the target repository while keeping numerical claims traceable to research artifacts.
+This repository is configured as a **GitHub Template Repository**. For a new research project, use **Use this template** on GitHub to create the new repository with the complete scaffold, including `_quarto.yml`, `index.qmd`, `references.bib`, `_extensions/sbc/`, and the validation/publication workflows.
+
+After creating a downstream repository from the template, adapt the manuscript metadata and scientific content, then enable **Settings → Pages → Source: GitHub Actions** if GitHub Pages publication is desired.
+
+A direct `quarto use template cvictorr2508/quarto-sbc` bootstrap is intentionally **not advertised as stable**. The repository root is an executable Quarto Manuscript (`index.qmd`), while Quarto's extension-template mechanism has different packaging conventions. The GitHub template-repository path preserves the complete Manuscript scaffold without relying on that transformation.
 
 ## GitHub Pages
 
@@ -92,8 +98,8 @@ The HTML representation is a scholarly companion and is not intended to reproduc
 3. ✅ Add SBC-specific front matter and bibliography compatibility.
 4. ✅ Add a Quarto Manuscript starter suitable for research repositories.
 5. ✅ Add a reusable GitHub Pages artifact-deployment workflow based on frozen computational outputs.
-6. Add visual/regression checks against the supplied SBC reference PDF.
-7. Validate installation/bootstrap behavior from a clean downstream repository.
+6. 🔄 Add structural/visual regression checks against the SBC reference output.
+7. 🔄 Validate downstream extension installation and template-repository bootstrap behavior from a clean repository.
 8. Tag the first stable release.
 
 ## Provenance
