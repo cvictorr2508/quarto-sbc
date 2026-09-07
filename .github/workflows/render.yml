@@ -86,4 +86,4 @@ jobs:
           EOF
 
           quarto render smoke.qmd --to sbc-pdf
-          test -s smoke.pdf
+          test -s _manuscript/smoke.pdf
