@@ -14,7 +14,7 @@ Reference files inside that archive:
 | File | SHA-256 | Integration status |
 |---|---|---|
 | `sbc-template.sty` | `dbe513d56dde32bedc53dcf7b9efba052ff1b3b747037ed2f284f7095a91e895` | Integrated as the normative layout resource; malformed characters occurring only in comments were normalized when committed as UTF-8. |
-| `sbc.bst` | `d884c6793e4ea54d13f5c751b3d6f4ea529a62d0906cd9774f2ec350b394691f` | Reference bibliography style. Its header states that copying is allowed subject to the conditions inherited from `apalike.bst`. Exact vendoring remains an explicit PR #2 completion item. |
+| `sbc.bst` | `d884c6793e4ea54d13f5c751b3d6f4ea529a62d0906cd9774f2ec350b394691f` | Inspected and tracked by hash. The file states that it is a copy of `apalike` for SBC whose documented change is removal of the comma before the year in citation labels. The adapter therefore uses the standard `apalike` formatter with natbib configured to reproduce that SBC author-year punctuation. Literal vendoring of the historical `.bst` remains optional and must preserve its original copying notice. |
 | `sbc-template.tex` | `7b1c4682b13c523968cea1ea367eda4477952e49628b1527312e040a6f3b776b` | Used as the behavioral reference for title, authors, affiliations, Abstract, Resumo and page layout. |
 
 ## Encoding policy
@@ -32,6 +32,12 @@ and
 ```
 
 in the same document. `quarto-sbc` intentionally does **not** reproduce that conflict. The Quarto adapter uses UTF-8 consistently.
+
+## Bibliography compatibility policy
+
+The supplied `sbc.bst` begins by identifying itself as a copy of `apalike` for SBC with no comma before the year in the citation label. The executable Quarto adapter keeps `apalike` as the bibliography formatter and sets natbib author-year punctuation explicitly so that citation behavior reproduces this documented SBC difference.
+
+This avoids silently modifying or partially copying the historical `.bst` while retaining a reproducible bibliography path. A bibliography fixture derived from the supplied SBC example is rendered in CI.
 
 ## Adaptation policy
 
