@@ -2,7 +2,14 @@
 title: "A Reproducible Scientific Article with Quarto and the SBC Style"
 author:
   - name: First Author
+    institute: 1
   - name: Second Author
+    institute: 2
+sbc-affiliations:
+  - text: "Department or Institute -- University A -- City -- Country"
+    email: "first.author@example.org"
+  - text: "Department or Institute -- University B -- City -- Country"
+    email: "second.author@example.org"
 abstract: |
   This document is a minimal reproducible example for the `quarto-sbc` extension. Replace this text with a concise statement of context, objective, method, results, and conclusions.
 resumo: |
