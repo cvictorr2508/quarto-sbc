@@ -24,11 +24,11 @@ $endif$
 $if(natbib)$
 % sbc-template.sty installs a historical hyperref-specific \@lbibitem hook at
 % the end of the preamble. That hook predates natbib and overwrites natbib's
-% author-year label parser. Preserve the natbib+hyperref definition here and
-% restore it after the SBC hook has run, keeping the vendored style untouched.
+% author-year label parser. Save the natbib+hyperref definition now; it is
+% restored immediately after \begin{document}, once all end-preamble hooks have
+% completed, keeping the vendored SBC style untouched.
 \makeatletter
 \let\quartosbcnatbiblbibitem\@lbibitem
-\AtEndPreamble{\let\@lbibitem\quartosbcnatbiblbibitem}
 \makeatother
 $endif$
 
@@ -55,6 +55,11 @@ $else$
 $endif$
 
 \begin{document}
+$if(natbib)$
+\makeatletter
+\let\@lbibitem\quartosbcnatbiblbibitem
+\makeatother
+$endif$
 
 \maketitle
 
