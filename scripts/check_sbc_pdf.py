@@ -62,23 +62,18 @@ def normalize_whitespace(value: str) -> str:
 
 
 def find_sequence(text: str, markers: list[str], *, label: str) -> None:
+    """Require markers in order, ignoring earlier incidental occurrences."""
     normalized_text = normalize_whitespace(text)
-    positions: list[tuple[str, int]] = []
+    cursor = 0
 
     for marker in markers:
         normalized_marker = normalize_whitespace(marker)
-        position = normalized_text.find(normalized_marker)
+        position = normalized_text.find(normalized_marker, cursor)
         if position < 0:
-            raise SystemExit(f"Missing expected {label} marker: {marker}")
-        positions.append((marker, position))
-
-    for (previous, previous_pos), (current, current_pos) in zip(
-        positions, positions[1:]
-    ):
-        if previous_pos >= current_pos:
             raise SystemExit(
-                f"Unexpected {label} order: {previous!r} must precede {current!r}"
+                f"Missing expected {label} marker after offset {cursor}: {marker}"
             )
+        cursor = position + len(normalized_marker)
 
 
 def tokenize(value: str) -> list[str]:
