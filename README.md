@@ -2,7 +2,7 @@
 
 Reusable Quarto infrastructure for preparing scientific manuscripts with the LaTeX style of the Sociedade Brasileira de Computação (SBC), with reproducible HTML/PDF output and GitHub Pages publication.
 
-> **Status:** pre-release (`0.3.1-dev`). The core format, Quarto Manuscript starter, GitHub Pages workflow, downstream portability test, and PDF regression gate are implemented and validated. The remaining release step is to create the first stable tag after final repository sanitization.
+> **Status:** pre-release (`0.2.0-dev`). The core format, Quarto Manuscript starter, GitHub Pages workflow, downstream portability test, and PDF regression gate are implemented and validated. The remaining release step is to create the first stable tag after final repository sanitization.
 
 ## Overview
 
