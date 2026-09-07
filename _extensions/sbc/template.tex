@@ -28,8 +28,12 @@ $if(title)$
 \title{$title$}
 $endif$
 
+$if(by-author)$
+\author{$for(by-author)$$by-author.name.literal$$if(by-author.metadata.institute)$\inst{$by-author.metadata.institute$}$endif$$sep$, $endfor$}
+$else$
 $if(author)$
-\author{$for(author)$$author.name$$if(author.institute)$\inst{$author.institute$}$endif$$sep$, $endfor$}
+\author{$for(author)$$author$$sep$, $endfor$}
+$endif$
 $endif$
 
 $if(sbc-affiliations)$
