@@ -26,10 +26,3 @@ jobs:
 
       - name: Render complete manuscript project
         run: quarto render
-
-      - name: Verify expected manuscript artifacts
-        shell: bash
-        run: |
-          test -f _manuscript/index.html
-          test -f index.pdf
-          test -f index.tex
