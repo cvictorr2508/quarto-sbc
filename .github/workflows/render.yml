@@ -21,8 +21,47 @@ jobs:
         with:
           tinytex: true
 
+      - name: Install PDF inspection tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+
       - name: Check Quarto installation
         run: quarto check
 
       - name: Render complete manuscript project
         run: quarto render
+
+      - name: Validate SBC PDF structure
+        run: |
+          test -s _manuscript/index.pdf
+          pdfinfo _manuscript/index.pdf > /tmp/pdfinfo.txt
+          pdftotext -layout _manuscript/index.pdf /tmp/index.txt
+
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          info = Path('/tmp/pdfinfo.txt').read_text(encoding='utf-8', errors='replace')
+          text = Path('/tmp/index.txt').read_text(encoding='utf-8', errors='replace')
+
+          size = re.search(r'Page size:\s+([0-9.]+) x ([0-9.]+) pts', info)
+          if not size:
+              raise SystemExit('Could not determine PDF page size')
+          width, height = map(float, size.groups())
+          if abs(width - 595.28) > 1.0 or abs(height - 841.89) > 1.0:
+              raise SystemExit(f'Expected A4 PDF, got {width} x {height} pts')
+
+          required = ['Abstract', 'Resumo', 'References']
+          missing = [item for item in required if item not in text]
+          if missing:
+              raise SystemExit(f'Missing expected SBC sections: {missing}')
+          PY
+
+      - name: Validate extension installation downstream
+        run: |
+          mkdir -p /tmp/quarto-sbc-downstream
+          cd /tmp/quarto-sbc-downstream
+          quarto create project manuscript . --no-prompt
+          quarto add cvictorr2508/quarto-sbc --no-prompt
+          test -f _extensions/sbc/_extension.yml
