@@ -14,6 +14,7 @@ abstract: |
   This document is a minimal reproducible example for the `quarto-sbc` extension. Replace this text with a concise statement of context, objective, method, results, and conclusions.
 resumo: |
   Este documento é um exemplo mínimo reprodutível para a extensão `quarto-sbc`. Substitua este texto por uma síntese do contexto, objetivo, método, resultados e conclusões.
+bibliography: references.bib
 format:
   sbc-html: default
   sbc-pdf: default
@@ -21,7 +22,7 @@ format:
 
 # Introduction
 
-This starter document verifies the installation and rendering path of the extension. It is intentionally generic and contains no fabricated scientific claims.
+This starter document verifies the installation and rendering path of the extension. It is intentionally generic and contains no fabricated scientific claims. The bibliography path is also exercised with a real reference from the supplied SBC example [@knuth:84].
 
 # Method
 
