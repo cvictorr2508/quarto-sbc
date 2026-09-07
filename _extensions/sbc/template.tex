@@ -1,36 +1,47 @@
 \documentclass[12pt]{article}
 
-% Initial SBC-compatible scaffold.
-% The authoritative SBC .sty/.bst resources supplied with the official template
-% will be integrated separately after provenance/licensing verification.
-\usepackage[a4paper,top=3.5cm,left=3cm,right=3cm,bottom=2.5cm]{geometry}
+% Quarto/Pandoc adapter for the SBC LaTeX style.
+% Source of truth for layout: sbc-template.sty supplied with the SBC template.
+\usepackage{sbc-template}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{times}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{amsmath,amssymb}
+\usepackage{url}
 \usepackage{hyperref}
-\usepackage[bf,sf,footnotesize]{caption}
+$if(natbib)$
+\usepackage{natbib}
+% The supplied sbc.bst is a copy of apalike whose documented SBC-specific
+% difference is the removal of the comma before the year in citation labels.
+% Keep apalike as the executable bibliography formatter and reproduce that
+% punctuation explicitly in natbib while the original sbc.bst remains tracked
+% by provenance hash.
+\setcitestyle{authoryear,round,aysep={}}
+$endif$
 
-\setlength{\parindent}{1.27cm}
-\setlength{\parskip}{6pt}
-\pagestyle{empty}
 \sloppy
-
-\begin{document}
 
 $if(title)$
 \title{$title$}
 $endif$
 
 $if(author)$
-\author{$for(author)$$author.name$$sep$ \and $endfor$}
+\author{$for(author)$$author.name$$if(author.institute)$\inst{$author.institute$}$endif$$sep$, $endfor$}
 $endif$
 
-\date{}
+$if(sbc-affiliations)$
+\address{$for(sbc-affiliations)$$sbc-affiliations.text$$if(sbc-affiliations.email)$\email{$sbc-affiliations.email$}$endif$$sep$
+\nextinstitute
+$endfor$}
+$else$
+\address{}
+$endif$
+
+\begin{document}
+
 \maketitle
 
 $if(abstract)$
@@ -40,12 +51,18 @@ $abstract$
 $endif$
 
 $if(resumo)$
-\renewcommand{\abstractname}{Resumo}
-\begin{abstract}
+\begin{resumo}
 $resumo$
-\end{abstract}
+\end{resumo}
 $endif$
 
 $body$
+
+$if(bibliography)$
+$if(natbib)$
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$apalike$endif$}
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+$endif$
+$endif$
 
 \end{document}

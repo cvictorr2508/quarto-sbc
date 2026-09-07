@@ -2,7 +2,7 @@
 
 Reusable Quarto format extension for preparing scientific manuscripts with the LaTeX style of the Sociedade Brasileira de Computação (SBC), with support for reproducible HTML/PDF publication workflows.
 
-> Status: early development (`0.1.0-dev`). The current PDF template is a compatibility scaffold; integration of the supplied authoritative SBC `.sty`/`.bst` resources is intentionally tracked as a separate step so their provenance/licensing and any UTF-8 compatibility adaptations can be documented explicitly.
+> Status: early development (`0.2.0-dev`). The PDF adapter now uses the project-supplied `sbc-template.sty` as its normative layout resource and is continuously rendered in CI.
 
 ## Goals
 
@@ -18,13 +18,17 @@ Reusable Quarto format extension for preparing scientific manuscripts with the L
 _extensions/
   sbc/
     _extension.yml
+    sbc-template.sty
     template.tex
+docs/
+  SBC_TEMPLATE_PROVENANCE.md
 template.qmd
+references.bib
 .github/workflows/render.yml
 AGENTS.md
 ```
 
-## Try the starter template
+## Try the starter document
 
 With Quarto installed:
 
@@ -33,36 +37,36 @@ quarto render template.qmd --to sbc-html
 quarto render template.qmd --to sbc-pdf
 ```
 
-To install the extension into an existing Quarto project from GitHub, the intended distribution path is:
+To install the extension into an existing Quarto project from GitHub:
 
 ```bash
 quarto add cvictorr2508/quarto-sbc
 ```
 
-To start from the repository's reusable example/template, the intended path is:
+The next development increment adds a full Quarto Manuscript starter so downstream research repositories can begin with `quarto use template cvictorr2508/quarto-sbc` and publish the manuscript through GitHub Pages.
 
-```bash
-quarto use template cvictorr2508/quarto-sbc
-```
+## SBC compatibility
 
-These commands will become part of the supported public interface once the initial rendering PR is validated.
+The PDF adapter maps Quarto/Pandoc metadata to the classic SBC title, author, institute, affiliation, `Abstract`, and `Resumo` structures. The adapter uses UTF-8 consistently rather than reproducing the conflicting UTF-8/Latin-1 declarations found in the historical example `.tex`.
+
+The supplied historical `sbc.bst` is tracked by SHA-256 in `docs/SBC_TEMPLATE_PROVENANCE.md`. Its own header identifies it as an `apalike` copy for SBC whose documented distinction is citation-label punctuation. The executable adapter therefore uses `apalike` with natbib configured for SBC-compatible author-year punctuation. Literal vendoring of the historical `.bst` can be added later when required, provided its original copying notice is preserved.
 
 ## Design principles
 
 The project treats the SBC template as the normative source for publication layout while keeping Quarto as the authoring and reproducibility layer. Scientific repositories should therefore be able to generate both a human-readable web manuscript and a submission-oriented PDF without duplicating the article source.
 
-The Quarto-facing implementation uses UTF-8 consistently. Historical encoding declarations from legacy SBC examples will not be copied blindly; any compatibility changes will be documented.
+The HTML representation is a scholarly companion to the PDF; it is not intended to reproduce the SBC page layout pixel-for-pixel.
 
 ## Roadmap
 
-1. Validate the minimal Quarto format extension and CI.
-2. Integrate the supplied SBC `sbc-template.sty` and `sbc.bst` resources with documented provenance.
-3. Add SBC-specific author/affiliation, `Abstract`, `Resumo`, bibliography, caption, and section handling.
-4. Add visual/regression checks against the supplied SBC reference PDF.
-5. Add a Quarto Manuscript starter suitable for research repositories.
-6. Add a reusable GitHub Pages publication workflow for downstream repositories.
+1. ✅ Validate the minimal Quarto format extension and CI.
+2. ✅ Integrate `sbc-template.sty` with documented provenance and UTF-8 adaptation.
+3. ✅ Add SBC-specific author/affiliation, `Abstract`, `Resumo`, bibliography compatibility, caption, and section handling.
+4. Add a Quarto Manuscript starter suitable for research repositories.
+5. Add a reusable GitHub Pages publication workflow based on frozen computational outputs.
+6. Add visual/regression checks against the supplied SBC reference PDF.
 7. Tag the first stable release.
 
 ## Provenance
 
-The initial development is based on the SBC LaTeX publication template supplied to the project and on Quarto's documented custom-format and manuscript extension mechanisms. Upstream template files remain attributable to their original authors/source.
+Development is based on the SBC LaTeX publication template supplied to the project and on Quarto's documented custom-format and manuscript mechanisms. Upstream template resources remain attributable to their original authors/source; provenance and compatibility decisions are recorded under `docs/`.
