@@ -1,0 +1,54 @@
+---
+title: "A Reproducible Scientific Article with Quarto and the SBC Style"
+author:
+  - name: First Author
+    institute: 1
+  - name: Second Author
+    institute: 2
+sbc-affiliations:
+  - text: "Department or Institute -- University A -- City -- Country"
+    email: "first.author@example.org"
+  - text: "Department or Institute -- University B -- City -- Country"
+    email: "second.author@example.org"
+abstract: |
+  This manuscript is a reusable starting point for evidence-based scientific articles authored with Quarto and rendered with an SBC-compatible LaTeX layout. Replace this text with a concise statement of context, objective, method, principal results, and conclusions.
+resumo: |
+  Este manuscrito é um ponto de partida reutilizável para artigos científicos baseados em evidências, escritos com Quarto e renderizados com layout LaTeX compatível com a SBC. Substitua este texto por uma síntese do contexto, objetivo, método, principais resultados e conclusões.
+bibliography: references.bib
+---
+
+# Introduction
+
+State the scientific context, research problem, gap, objective, research questions, and contributions. Every substantive claim should be supported by evidence or an appropriate citation. The bibliography integration is exercised with a real reference from the supplied SBC example [@knuth:84].
+
+# Background and Related Work
+
+Position the contribution against verifiable peer-reviewed literature. Do not fabricate references; use explicit citation placeholders when evidence still needs to be collected.
+
+# Methodology
+
+Describe the problem formulation, data, algorithms, models, baselines, preprocessing, and implementation choices with explicit provenance to the research repository.
+
+# Experimental Design
+
+Document research questions or hypotheses, datasets or benchmark instances, factors, metrics, software and hardware environment, randomization, seeds, statistical procedures, and reproducibility constraints.
+
+# Results
+
+Report only results traceable to machine-readable experiment outputs. Prefer programmatically generated tables and figures to manually transcribed values.
+
+# Discussion
+
+Separate empirical observations from interpretation. Discuss scientific and practical implications without generalizing beyond the experimental evidence.
+
+# Threats to Validity
+
+Discuss construct, internal, external, and conclusion validity when relevant to the research design.
+
+# Reproducibility
+
+Explain how the repository, datasets, environments, experiment scripts, frozen outputs, and manuscript rendering relate to one another. Expensive experiments should normally run outside the GitHub Pages workflow; their saved outputs can be consumed by the manuscript.
+
+# Conclusion
+
+Summarize the supported findings, limitations, and well-grounded directions for future research.
