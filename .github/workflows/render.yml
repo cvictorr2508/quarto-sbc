@@ -32,31 +32,34 @@ jobs:
       - name: Render complete manuscript project
         run: quarto render
 
-      - name: Validate SBC PDF structure
+      - name: Prepare SBC PDF regression inputs
         run: |
           test -s _manuscript/index.pdf
-          pdfinfo _manuscript/index.pdf > /tmp/pdfinfo.txt
-          pdftotext -layout _manuscript/index.pdf /tmp/index.txt
+          mkdir -p artifacts
+          pdfinfo _manuscript/index.pdf > artifacts/index-pdfinfo.txt
+          pdftotext -layout _manuscript/index.pdf artifacts/index.txt
+          pdftoppm \
+            -f 1 \
+            -singlefile \
+            -png \
+            -r 144 \
+            _manuscript/index.pdf \
+            artifacts/sbc-first-page
 
-          python3 - <<'PY'
-          import re
-          from pathlib import Path
+      - name: Validate SBC PDF editorial structure
+        run: |
+          python3 scripts/check_sbc_pdf.py \
+            --pdfinfo artifacts/index-pdfinfo.txt \
+            --text artifacts/index.txt
 
-          info = Path('/tmp/pdfinfo.txt').read_text(encoding='utf-8', errors='replace')
-          text = Path('/tmp/index.txt').read_text(encoding='utf-8', errors='replace')
-
-          size = re.search(r'Page size:\s+([0-9.]+) x ([0-9.]+) pts', info)
-          if not size:
-              raise SystemExit('Could not determine PDF page size')
-          width, height = map(float, size.groups())
-          if abs(width - 595.28) > 1.0 or abs(height - 841.89) > 1.0:
-              raise SystemExit(f'Expected A4 PDF, got {width} x {height} pts')
-
-          required = ['Abstract', 'Resumo', 'References']
-          missing = [item for item in required if item not in text]
-          if missing:
-              raise SystemExit(f'Missing expected SBC sections: {missing}')
-          PY
+      - name: Upload SBC first-page preview
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: sbc-first-page-preview
+          path: artifacts/sbc-first-page.png
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Validate extension installation downstream
         run: |
