@@ -2,7 +2,7 @@
 
 Reusable Quarto infrastructure for preparing scientific manuscripts with the LaTeX style of the Sociedade Brasileira de Computação (SBC), with reproducible HTML/PDF output and GitHub Pages publication.
 
-> Status: development (`0.3.0-dev`). The repository now combines a reusable SBC custom format with a Quarto Manuscript starter.
+> Status: development (`0.3.1-dev`). The repository combines a reusable SBC custom format with a Quarto Manuscript starter and artifact-based GitHub Pages deployment.
 
 ## What this repository provides
 
@@ -11,7 +11,7 @@ Reusable Quarto infrastructure for preparing scientific manuscripts with the LaT
 - a root Quarto Manuscript project that serves as an executable starter;
 - `execute.freeze: auto` so expensive scientific computations can be executed locally/HPC and their saved outputs reused during publication;
 - CI validation with Quarto + TinyTeX;
-- GitHub Pages publication through the `gh-pages` branch.
+- GitHub Pages publication using the official Pages artifact/OIDC deployment model rather than writing to a `gh-pages` branch.
 
 ## Repository layout
 
@@ -61,9 +61,17 @@ The starter provides `_quarto.yml`, `index.qmd`, bibliography scaffolding, the S
 
 ## GitHub Pages
 
-`.github/workflows/publish.yml` follows the Quarto Manuscript publishing model: pushes to `main` render and publish the manuscript to the `gh-pages` branch. The workflow deliberately does not install a scientific Python/R/HPC environment; computational results should normally be rendered locally and preserved with Quarto freeze.
+`.github/workflows/publish.yml` renders the Quarto Manuscript, uploads `_manuscript/` as a GitHub Pages artifact, and deploys it with `actions/deploy-pages`. It uses narrowly scoped permissions:
 
-For a downstream repository, GitHub Actions must be allowed to write repository contents so the workflow can update `gh-pages`, and GitHub Pages must use that branch as its publication source.
+- `contents: read`;
+- `pages: write`;
+- `id-token: write`.
+
+The workflow deliberately does not install a scientific Python/R/HPC environment. Computational results should normally be generated locally or on HPC and preserved with Quarto freeze.
+
+### One-time repository configuration
+
+For this repository and for each downstream repository using the starter, open **Settings → Pages** and set **Source** to **GitHub Actions**. No personal access token and no repository-wide `contents: write` permission are required by the publication workflow.
 
 ## SBC compatibility
 
@@ -83,7 +91,7 @@ The HTML representation is a scholarly companion and is not intended to reproduc
 2. ✅ Integrate `sbc-template.sty` with documented provenance and UTF-8 adaptation.
 3. ✅ Add SBC-specific front matter and bibliography compatibility.
 4. ✅ Add a Quarto Manuscript starter suitable for research repositories.
-5. ✅ Add a reusable GitHub Pages publication workflow based on frozen computational outputs.
+5. ✅ Add a reusable GitHub Pages artifact-deployment workflow based on frozen computational outputs.
 6. Add visual/regression checks against the supplied SBC reference PDF.
 7. Validate installation/bootstrap behavior from a clean downstream repository.
 8. Tag the first stable release.
