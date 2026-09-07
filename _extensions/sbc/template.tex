@@ -11,7 +11,6 @@
 \usepackage{array}
 \usepackage{amsmath,amssymb}
 \usepackage{url}
-\usepackage{hyperref}
 $if(natbib)$
 \usepackage{natbib}
 % The supplied sbc.bst is a copy of apalike whose documented SBC-specific
@@ -19,7 +18,18 @@ $if(natbib)$
 % Keep apalike as the executable bibliography formatter and reproduce that
 % punctuation explicitly in natbib while the original sbc.bst remains tracked
 % by provenance hash.
-\setcitestyle{authoryear,round,aysep={}}
+\setcitestyle{authoryear,round,aysep={ }}
+$endif$
+\usepackage{hyperref}
+$if(natbib)$
+% sbc-template.sty installs a historical hyperref-specific \@lbibitem hook at
+% the end of the preamble. That hook predates natbib and overwrites natbib's
+% author-year label parser. Save the natbib+hyperref definition now; it is
+% restored immediately after \begin{document}, once all end-preamble hooks have
+% completed, keeping the vendored SBC style untouched.
+\makeatletter
+\let\quartosbcnatbiblbibitem\@lbibitem
+\makeatother
 $endif$
 
 \sloppy
@@ -28,8 +38,12 @@ $if(title)$
 \title{$title$}
 $endif$
 
+$if(by-author)$
+\author{$for(by-author)$$by-author.name.literal$$if(by-author.metadata.institute)$\inst{$by-author.metadata.institute$}$endif$$sep$, $endfor$}
+$else$
 $if(author)$
-\author{$for(author)$$author.name$$if(author.institute)$\inst{$author.institute$}$endif$$sep$, $endfor$}
+\author{$for(author)$$author$$sep$, $endfor$}
+$endif$
 $endif$
 
 $if(sbc-affiliations)$
@@ -41,6 +55,11 @@ $else$
 $endif$
 
 \begin{document}
+$if(natbib)$
+\makeatletter
+\let\@lbibitem\quartosbcnatbiblbibitem
+\makeatother
+$endif$
 
 \maketitle
 
