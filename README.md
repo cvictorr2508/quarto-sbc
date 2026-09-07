@@ -49,13 +49,13 @@ There are two supported downstream paths, depending on whether a research reposi
 
 ### Existing repository: install only the SBC format
 
-From the target Quarto project, install the extension explicitly from its `sbc` subdirectory:
+From the target Quarto project, install the extension from the repository's public distribution entry point:
 
 ```bash
-quarto add cvictorr2508/quarto-sbc/sbc
+quarto add cvictorr2508/quarto-sbc
 ```
 
-This installs `_extensions/sbc/` while leaving the target repository's scientific structure unchanged.
+The repository keeps the extension implementation under `_extensions/sbc/`, but that internal path is not part of the downstream installation contract. CI validates portability behaviorally by installing from a clean Quarto Manuscript project and rendering a document with `sbc-pdf`.
 
 ### New scientific repository: use this GitHub template
 
