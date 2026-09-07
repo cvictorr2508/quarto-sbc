@@ -27,6 +27,8 @@ EXPECTED_PDF_SEQUENCE = [
     "Abstract",
     "Resumo",
     "Introduction",
+    "Knuth 1984",
+    "Background and Related Work",
     "References",
 ]
 
