@@ -11,7 +11,6 @@
 \usepackage{array}
 \usepackage{amsmath,amssymb}
 \usepackage{url}
-\usepackage{hyperref}
 $if(natbib)$
 \usepackage{natbib}
 % The supplied sbc.bst is a copy of apalike whose documented SBC-specific
@@ -19,7 +18,18 @@ $if(natbib)$
 % Keep apalike as the executable bibliography formatter and reproduce that
 % punctuation explicitly in natbib while the original sbc.bst remains tracked
 % by provenance hash.
-\setcitestyle{authoryear,round,aysep={}}
+\setcitestyle{authoryear,round,aysep={ }}
+$endif$
+\usepackage{hyperref}
+$if(natbib)$
+% sbc-template.sty installs a historical hyperref-specific \@lbibitem hook at
+% the end of the preamble. That hook predates natbib and overwrites natbib's
+% author-year label parser. Preserve the natbib+hyperref definition here and
+% restore it after the SBC hook has run, keeping the vendored style untouched.
+\makeatletter
+\let\quartosbcnatbiblbibitem\@lbibitem
+\AtEndPreamble{\let\@lbibitem\quartosbcnatbiblbibitem}
+\makeatother
 $endif$
 
 \sloppy
