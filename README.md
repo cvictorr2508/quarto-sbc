@@ -2,7 +2,7 @@
 
 Reusable Quarto infrastructure for preparing scientific manuscripts with the LaTeX style of the Sociedade Brasileira de Computação (SBC), with reproducible HTML/PDF output and GitHub Pages publication.
 
-> **Status:** pre-release (`0.2.0-dev`). The core format, Quarto Manuscript starter, GitHub Pages workflow, downstream portability test, and PDF regression gate are implemented and validated. The remaining release step is to create the first stable tag after final repository sanitization.
+> **Version:** `0.2.0`. The reusable format, Quarto Manuscript starter, GitHub Pages workflow, downstream portability test, PDF regression gate, licensing boundary, and release documentation are implemented and validated.
 
 ## Overview
 
@@ -16,7 +16,8 @@ The repository includes:
 - `execute.freeze: auto`, allowing computational results produced locally or on HPC to be reused during publication;
 - continuous integration with Quarto, TinyTeX, structural PDF regression checks, and downstream installation validation;
 - GitHub Pages publication through the official Pages artifact/OIDC deployment model;
-- provenance documentation for the historical SBC LaTeX resources and all compatibility decisions.
+- provenance and third-party notices for the historical SBC LaTeX resources;
+- an MIT license covering original `quarto-sbc` code and documentation, subject to the third-party exclusions documented in `THIRD_PARTY_NOTICES.md`.
 
 ## Repository layout
 
@@ -38,6 +39,9 @@ docs/
   render.yml
   publish.yml
 AGENTS.md
+CHANGELOG.md
+LICENSE
+THIRD_PARTY_NOTICES.md
 ```
 
 Generated PDFs, TeX intermediates, Quarto build directories, and GitHub Actions artifacts are intentionally excluded from version control.
@@ -158,7 +162,15 @@ The adapter preserves the classic SBC page geometry, title block, author/institu
 
 The HTML manuscript is a scholarly companion representation and is not intended to reproduce the SBC PDF layout pixel-for-pixel.
 
-All imported-resource provenance and compatibility decisions are documented in `docs/SBC_TEMPLATE_PROVENANCE.md`.
+Imported-resource provenance and compatibility decisions are documented in `docs/SBC_TEMPLATE_PROVENANCE.md`.
+
+## License and third-party material
+
+Original `quarto-sbc` code and documentation are released under the MIT License. See `LICENSE`.
+
+The repository also contains a historical SBC LaTeX style resource that is third-party material and is **not relicensed under MIT**. Its attribution, provenance, adaptation notes, and license boundary are documented in `THIRD_PARTY_NOTICES.md` and `docs/SBC_TEMPLATE_PROVENANCE.md`.
+
+Researchers and redistributors should verify any applicable upstream terms and the current author instructions of the target SBC venue.
 
 ## Development and validation
 
@@ -180,11 +192,11 @@ python3 scripts/check_sbc_pdf.py \
   --tex artifacts/index.tex
 ```
 
-See `AGENTS.md` for repository engineering principles.
+See `AGENTS.md` for repository engineering principles and `CHANGELOG.md` for release history.
 
-## Release readiness
+## Release 0.2.0
 
-The repository has completed the initial implementation milestones:
+Version `0.2.0` is the first public release of the reusable infrastructure. It includes:
 
 - reusable Quarto SBC format;
 - SBC LaTeX style integration with documented provenance;
@@ -193,9 +205,11 @@ The repository has completed the initial implementation milestones:
 - GitHub Pages artifact deployment;
 - clean downstream extension installation/render validation;
 - structural/editorial PDF regression checks;
-- first-page visual review and regression diagnostics.
+- first-page visual review and regression diagnostics;
+- internationalized engineering documentation and comments;
+- explicit project licensing and third-party boundaries.
 
-After the final sanitization PR is merged and the post-merge CI/Pages workflows remain green, the repository is ready for its first stable release tag.
+See `CHANGELOG.md` for the detailed release notes.
 
 ## Scope and responsibility
 

@@ -1,6 +1,6 @@
 title: SBC
 author: Victor Rafael Celestino
-version: 0.2.0-dev
+version: 0.2.0
 contributes:
   format:
     common:
