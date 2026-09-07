@@ -45,15 +45,25 @@ A full `quarto render` should be run locally before publishing. When executable 
 
 ## Reuse in another research repository
 
-Install only the SBC format extension:
+There are two supported downstream paths, depending on whether a research repository already exists.
+
+### Existing repository: install only the SBC format
+
+From the target Quarto project, install the extension explicitly from its `sbc` subdirectory:
 
 ```bash
-quarto add cvictorr2508/quarto-sbc
+quarto add cvictorr2508/quarto-sbc/sbc
 ```
 
-The repository root is also maintained as an executable Quarto Manuscript starter. For a new research repository, use this repository as the starter source (clone/copy the scaffold or GitHub's template-repository mechanism once enabled), then adapt `_quarto.yml`, `index.qmd`, `references.bib`, and the publication workflows.
+This installs `_extensions/sbc/` while leaving the target repository's scientific structure unchanged.
 
-A direct `quarto use template cvictorr2508/quarto-sbc` bootstrap is intentionally **not yet advertised as stable**. Quarto format templates conventionally require a root `template.qmd`, whereas a Manuscript project conventionally uses `index.qmd`; this interaction is being validated before the first stable release.
+### New scientific repository: use this GitHub template
+
+This repository is configured as a **GitHub Template Repository**. For a new research project, use **Use this template** on GitHub to create the new repository with the complete scaffold, including `_quarto.yml`, `index.qmd`, `references.bib`, `_extensions/sbc/`, and the validation/publication workflows.
+
+After creating a downstream repository from the template, adapt the manuscript metadata and scientific content, then enable **Settings → Pages → Source: GitHub Actions** if GitHub Pages publication is desired.
+
+A direct `quarto use template cvictorr2508/quarto-sbc` bootstrap is intentionally **not advertised as stable**. The repository root is an executable Quarto Manuscript (`index.qmd`), while Quarto's extension-template mechanism has different packaging conventions. The GitHub template-repository path preserves the complete Manuscript scaffold without relying on that transformation.
 
 ## GitHub Pages
 
@@ -89,7 +99,7 @@ The HTML representation is a scholarly companion and is not intended to reproduc
 4. ✅ Add a Quarto Manuscript starter suitable for research repositories.
 5. ✅ Add a reusable GitHub Pages artifact-deployment workflow based on frozen computational outputs.
 6. 🔄 Add structural/visual regression checks against the SBC reference output.
-7. 🔄 Validate downstream extension installation and project-bootstrap behavior from a clean repository.
+7. 🔄 Validate downstream extension installation and template-repository bootstrap behavior from a clean repository.
 8. Tag the first stable release.
 
 ## Provenance
