@@ -44,10 +44,18 @@ def check_page_size(info: str) -> None:
         )
 
 
+def normalize_whitespace(value: str) -> str:
+    """Collapse extraction-only whitespace without changing visible wording."""
+    return " ".join(value.split())
+
+
 def check_editorial_sequence(text: str) -> None:
+    normalized_text = normalize_whitespace(text)
     positions: list[tuple[str, int]] = []
+
     for marker in EXPECTED_SEQUENCE:
-        position = text.find(marker)
+        normalized_marker = normalize_whitespace(marker)
+        position = normalized_text.find(normalized_marker)
         if position < 0:
             raise SystemExit(f"Missing expected editorial marker: {marker}")
         positions.append((marker, position))
