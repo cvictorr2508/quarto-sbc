@@ -1,4 +1,4 @@
-name: Render extension example
+name: Validate Quarto SBC manuscript
 
 on:
   pull_request:
@@ -24,8 +24,12 @@ jobs:
       - name: Check Quarto installation
         run: quarto check
 
-      - name: Render HTML example
-        run: quarto render template.qmd --to sbc-html
+      - name: Render complete manuscript project
+        run: quarto render
 
-      - name: Render PDF example
-        run: quarto render template.qmd --to sbc-pdf
+      - name: Verify expected manuscript artifacts
+        shell: bash
+        run: |
+          test -f _manuscript/index.html
+          test -f index.pdf
+          test -f index.tex
